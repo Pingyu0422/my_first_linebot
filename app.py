@@ -97,7 +97,7 @@ def handle_message(event):
                 messages=[
                     {
                         "role": "system",
-                        "content": "我是ABC公司的客服AI，會以親切友善的態度回答問題，如果您不知道如何操作，歡迎隨時輸入\"menu\"來查看主選單"
+                        "content": """我是你的客服AI，會以親切友善的態度回答問題，如果您不知道如何操作，歡迎隨時輸入\"menu\"來查看主選單"""
                     },
                     {
                         "role": "user",
@@ -106,9 +106,9 @@ def handle_message(event):
                 ]
             )
 
-        print(completion.choices[0].message.content)
-        ai_msg = completion.choices[0].message.content
-        bot_msg = TextMessage(text=ai_msg)
+            print(completion.choices[0].message.content)
+            ai_msg = completion.choices[0].message.content
+            bot_msg = TextMessage(text=ai_msg)
 
         line_bot_api.reply_message_with_http_info(
             ReplyMessageRequest(
