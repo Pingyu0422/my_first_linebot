@@ -26,10 +26,10 @@ from linebot.v3.webhooks import (
 import os
 
 from modules.reply import faq, menu
-# from modules.currency import get_exchange_table
+from modules.currency import get_exchange_table
 
-# table = get_exchange_table()
-# print("匯率表:", table)
+table = get_exchange_table()
+print("匯率表:", table)
 
 from openai import OpenAI
 
@@ -86,11 +86,11 @@ def handle_message(event):
             bot_msg = faq[user_msg] # 透過key取得對應的value    
         elif user_msg.lower() in ["menu", "選單", "主選單", "main"]:
             bot_msg = menu
-        # elif user_msg in table:
-        #     # 如果使用者輸入的文字是幣別名稱，取得買賣價
-        #     buy = table[user_msg]["buy"]
-        #     sell = table[user_msg]["sell"]
-        #     bot_msg = TextMessage(text=f"{user_msg}\n 買價:{buy}\n 賣價:{sell}\n 資料來源:台灣銀行匯率牌告")
+        elif user_msg in table:
+            # 如果使用者輸入的文字是幣別名稱，取得買賣價
+             buy = table[user_msg]["buy"]
+             sell = table[user_msg]["sell"]
+             bot_msg = TextMessage(text=f"{user_msg}\n 買價:{buy}\n 賣價:{sell}\n 資料來源:台灣銀行匯率牌告")
         else:
             completion = client.chat.completions.create(
                 model="gpt-4o-mini",
